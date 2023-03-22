@@ -2,12 +2,9 @@ package data
 
 import Descriptor
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SortOrder
 import ServiceResult
 import data.DatabaseFactory.dbQuery
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.*
 
 class SanTanScanDao {
     private fun resultRowToDescriptor(row: ResultRow): Descriptor {
@@ -32,6 +29,25 @@ class SanTanScanDao {
             }
 
             ServiceResult.Success(descriptors)
+
+        } catch (e: Exception) {
+            println(e)
+            ServiceResult.Error(ErrorCode.DATABASE_ERROR)
+        }
+    }
+
+    suspend fun batchDescriptorInsert(descriptors: List<Descriptor>): ServiceResult<Boolean> {
+        return try {
+            val result = dbQuery {
+                DescriptorTable.batchInsert(descriptors) {
+                    this[DescriptorTable.uuid] = it.uuid
+                    this[DescriptorTable.name] = it.name
+                    this[DescriptorTable.identifier] = it.identifier
+                    this[DescriptorTable.bleSource] = it.source
+                }
+            }
+
+            ServiceResult.Success(true)
 
         } catch (e: Exception) {
             println(e)

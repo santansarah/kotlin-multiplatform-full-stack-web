@@ -2,6 +2,7 @@ package di
 
 import data.SanTanScanDao
 import data.remote.NumbersApiService
+import domain.CheckForNewDescriptors
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.util.logging.*
@@ -39,5 +40,6 @@ val serverModule = module {
 
     single { NumbersApiService(get()) }
     single { SanTanScanDao() }
+    single { CheckForNewDescriptors(get(), get()) }
 
 }
