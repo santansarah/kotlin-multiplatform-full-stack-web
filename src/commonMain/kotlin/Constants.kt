@@ -1,0 +1,1 @@
+const val BASE_URL = "https://raw.githubusercontent.com/santansarah/bluetooth-numbers-database/ktor-testing/v1"

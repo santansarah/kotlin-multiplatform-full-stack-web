@@ -6,5 +6,7 @@ fun main() {
     val container = document.createElement("div")
     document.body!!.appendChild(container)
 
-    createRoot(container).render(App.create())
+    createRoot(container).render(App.create {
+        gitPath = BASE_URL
+    })
 }

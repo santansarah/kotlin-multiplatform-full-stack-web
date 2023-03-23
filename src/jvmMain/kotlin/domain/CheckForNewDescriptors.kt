@@ -1,10 +1,13 @@
 package domain
 
 import Descriptor
+import Service
 import ServiceResult
 import SyncResponse
 import data.SanTanScanDao
 import data.remote.NumbersApiService
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 class CheckForNewDescriptors
     (
@@ -17,6 +20,7 @@ class CheckForNewDescriptors
         if (existingDescriptorsFromDb is ServiceResult.Error) {
             return syncError(existingDescriptorsFromDb)
         }
+
 
         val jsonDescriptorsFromGit = numbersApiService.getDescriptorsJson()
         if (jsonDescriptorsFromGit is ServiceResult.Error)

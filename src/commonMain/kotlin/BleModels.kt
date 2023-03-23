@@ -28,4 +28,9 @@ data class Descriptor(
     val name: String,
     val source: String,
     val uuid: String
-)
+) {
+    companion object {
+        const val path = "/descriptors"
+    }
+
+}
