@@ -5,8 +5,10 @@ import SyncResponse
 import csstype.*
 import elements.appButton
 import emotion.react.css
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import react.ChildrenBuilder
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
@@ -16,7 +18,7 @@ import react.dom.html.ReactHTML.textarea
 import react.useState
 import services.syncDescriptors
 
-external interface DescriptorsProps: Props {
+external interface DescriptorsProps : Props {
 
 }
 
@@ -24,20 +26,32 @@ private val scope = MainScope()
 
 val Descriptors = FC<Props> { props ->
 
-    var descriptorSyncResponse: SyncResponse? by useState(
-        SyncResponse(
-            0, listOf(
-                Descriptor("", "Click to Sync", "gss", "20F0")
-            ), emptyList()
-        )
-    )
+    var descriptorSyncResponse by useState("")
 
     fun onSync() {
+        println("button event launched")
         scope.launch {
-            descriptorSyncResponse = syncDescriptors()
+            val responseString = syncDescriptors()
+            descriptorSyncResponse = responseString.updateCount.toString() + "\n" +
+                    responseString.updatedValues.toString() + "\n" +
+                    responseString.errors.toString()
         }
     }
 
+    syncItem(
+        title = "Sync Descriptors",
+        descriptorSyncResponse = descriptorSyncResponse,
+        onSync = { onSync() }
+    )
+
+
+}
+
+fun ChildrenBuilder.syncItem(
+    title: String,
+    descriptorSyncResponse: String,
+    onSync: () -> Unit
+) {
     div {
         div {
             css {
@@ -52,10 +66,10 @@ val Descriptors = FC<Props> { props ->
                     width = 50.pct
                 }
 
-                +"Sync Descriptors"
+                +title
             }
 
-            appButton("Start Sync") { onSync() }
+            appButton("Start Sync", onSync)
         }
         p {
             +"API Results"
@@ -69,10 +83,8 @@ val Descriptors = FC<Props> { props ->
             }
 
             rows = 6
-            value = descriptorSyncResponse?.toString() ?: ""
+            value = descriptorSyncResponse
         }
     }
-
-
 }
 

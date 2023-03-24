@@ -1,5 +1,6 @@
 package services
 
+import BleCharacteristic
 import Descriptor
 import SyncResponse
 import io.ktor.client.*
@@ -14,6 +15,11 @@ val jsonClient = HttpClient {
     }
 }
 
-suspend fun syncDescriptors(): SyncResponse {
+suspend fun syncCharacteristics(): SyncResponse<BleCharacteristic> {
+    return jsonClient.get(BleCharacteristic.path).body()
+}
+
+
+suspend fun syncDescriptors(): SyncResponse<Descriptor> {
     return jsonClient.get(Descriptor.path).body()
 }

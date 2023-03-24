@@ -5,12 +5,12 @@ import ResponseErrors
 import ServiceResult
 import SyncResponse
 
-fun syncError(serviceResult: ServiceResult.Error) = SyncResponse(
-    0, emptyList(), listOf(
+fun <T> syncError(serviceResult: ServiceResult.Error) = SyncResponse(
+    0, emptyList<T>(), listOf(
         ResponseErrors(serviceResult.error, serviceResult.error.message)
     )
 )
 
-fun syncDescriptorSuccess(newDescriptors: List<Descriptor>) = SyncResponse(
-    newDescriptors.count(), newDescriptors, emptyList()
+fun <T> syncSuccess(newList: List<T>) = SyncResponse(
+    newList.count(), newList, emptyList()
 )

@@ -1,20 +1,19 @@
-package domain
+package domain.usecases
 
 import Descriptor
-import Service
 import ServiceResult
 import SyncResponse
 import data.SanTanScanDao
 import data.remote.NumbersApiService
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
+import domain.syncError
+import domain.syncSuccess
 
 class CheckForNewDescriptors
     (
     private val sanTanScanDao: SanTanScanDao,
     private val numbersApiService: NumbersApiService
 ) {
-    suspend operator fun invoke(): SyncResponse {
+    suspend operator fun invoke(): SyncResponse<Descriptor> {
 
         val existingDescriptorsFromDb = sanTanScanDao.getDescriptors()
         if (existingDescriptorsFromDb is ServiceResult.Error) {
@@ -40,10 +39,10 @@ class CheckForNewDescriptors
             if (insertBatch is ServiceResult.Error)
                 syncError(insertBatch)
             else {
-                syncDescriptorSuccess(newDescriptors)
+                syncSuccess(newDescriptors)
             }
         } else {
-            syncDescriptorSuccess(emptyList())
+            syncSuccess(emptyList())
         }
 
     }

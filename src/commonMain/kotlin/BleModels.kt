@@ -20,7 +20,12 @@ data class BleCharacteristic(
     val name: String,
     val source: String,
     val uuid: String
-)
+) {
+    companion object {
+        const val jsonFile = "characteristic_uuids.json"
+        const val path = "/characteristics"
+    }
+}
 
 @Serializable
 data class Descriptor(
@@ -30,6 +35,7 @@ data class Descriptor(
     val uuid: String
 ) {
     companion object {
+        const val jsonFile = "descriptor_uuids.json"
         const val path = "/descriptors"
     }
 

@@ -2,10 +2,10 @@ package di
 
 import data.SanTanScanDao
 import data.remote.NumbersApiService
-import domain.CheckForNewDescriptors
+import domain.usecases.CheckForNewCharacteristics
+import domain.usecases.CheckForNewDescriptors
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.util.logging.*
 import org.koin.dsl.module
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
@@ -41,5 +41,6 @@ val serverModule = module {
     single { NumbersApiService(get()) }
     single { SanTanScanDao() }
     single { CheckForNewDescriptors(get(), get()) }
+    single { CheckForNewCharacteristics(get(), get()) }
 
 }

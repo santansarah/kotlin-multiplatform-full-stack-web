@@ -1,5 +1,6 @@
 package components
 
+import csstype.AlignItems
 import csstype.Display
 import csstype.px
 import csstype.rgb
@@ -18,6 +19,7 @@ val AppHeader = FC<Props> { props ->
 
         css {
             display = Display.flex
+            alignItems = AlignItems.center
         }
 
         img {

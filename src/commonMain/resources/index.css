@@ -3,3 +3,11 @@
 body {
   font-family: OpenSans;
 }
+
+.container {
+   margin = Auto.auto
+   padding = 20.px
+   height = 100.pc
+   backgroundColor = Color("#f7f7f8")
+   borderRadius = 50.px
+ }

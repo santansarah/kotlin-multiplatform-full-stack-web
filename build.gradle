@@ -36,7 +36,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js() {
+    js(IR) {
         binaries.executable()
         browser {
             commonWebpackConfig {
@@ -138,12 +138,11 @@ application {
     mainClassName = 'ServerKt'
 }
 
-/*
 // include JS artifacts in any generated JAR
 tasks.getByName("jvmJar") {
     def taskName = "jsBrowserDevelopmentWebpack"
 
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     def webpackTask = tasks.getByName(taskName)
     dependsOn(webpackTask) // make sure JS gets compiled first
@@ -151,7 +150,6 @@ tasks.getByName("jvmJar") {
     from(webpackTask.name, webpackTask.destinationDirectory)
 
 }
-*/
 
 tasks.named('jvmProcessResources') {
     def jsBrowserDistribution = tasks.named('jsBrowserDistribution')

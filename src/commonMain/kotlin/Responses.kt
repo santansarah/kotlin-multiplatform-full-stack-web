@@ -1,9 +1,9 @@
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SyncResponse(
+data class SyncResponse<T>(
     val updateCount: Int,
-    val updatedValues: List<Descriptor>,
+    val updatedValues: List<T>,
     val errors: List<ResponseErrors>
 )
 

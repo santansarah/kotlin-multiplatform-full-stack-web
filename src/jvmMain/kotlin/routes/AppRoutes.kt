@@ -1,27 +1,25 @@
 package routes
 
-import domain.CheckForNewDescriptors
+import domain.usecases.CheckForNewCharacteristics
+import domain.usecases.CheckForNewDescriptors
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.http.content.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Route.main(
-    checkForNewDescriptors: CheckForNewDescriptors
+fun Route.backEnd(
+    checkForNewDescriptors: CheckForNewDescriptors,
+    checkForNewCharacteristics: CheckForNewCharacteristics
 ) {
 
-    route("/") {
+    route("/characteristics") {
         get {
-            call.respondText(
-                this::class.java.classLoader.getResource("index.html")!!.readText(),
-                ContentType.Text.Html
+            val syncResponse = checkForNewCharacteristics.invoke()
+            call.respond(
+                status = HttpStatusCode.OK,
+                message = syncResponse
             )
         }
-    }
-
-    static("/") {
-        resources("")
     }
 
     route("/descriptors") {

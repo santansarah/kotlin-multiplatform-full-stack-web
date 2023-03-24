@@ -1,5 +1,6 @@
 package data.remote
 
+import BleCharacteristic
 import Descriptor
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -17,8 +18,27 @@ class NumbersApiService constructor(
 
        // private const val BASE_URL = "https://raw.githubusercontent.com/santansarah/bluetooth-numbers-database/master/v1"
         private const val BASE_URL = "https://raw.githubusercontent.com/santansarah/bluetooth-numbers-database/ktor-testing/v1"
-        const val DESCRIPTORS = "$BASE_URL/descriptor_uuids.json"
+        const val DESCRIPTORS = "$BASE_URL/${Descriptor.jsonFile}"
+        const val CHARACTERISTICS = "$BASE_URL/${BleCharacteristic.jsonFile}"
+    }
 
+    suspend fun getCharacteristicsJson(): ServiceResult<List<BleCharacteristic>> {
+
+        return try {
+
+            val characteristicJson: String = client.get(CHARACTERISTICS).body()
+
+            println(characteristicJson)
+
+            val characteristicList: List<BleCharacteristic> = Json.decodeFromString(characteristicJson)
+            println(characteristicList.toString())
+
+            ServiceResult.Success(characteristicList)
+
+        } catch (apiError: Exception) {
+            println(apiError.message)
+            return ServiceResult.Error(ErrorCode.FETCH_ERROR)
+        }
     }
 
     suspend fun getDescriptorsJson(): ServiceResult<List<Descriptor>> {

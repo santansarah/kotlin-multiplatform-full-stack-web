@@ -3,6 +3,7 @@ import components.Descriptors
 import csstype.*
 import emotion.react.css
 import kotlinx.browser.document
+import org.w3c.dom.HTMLDivElement
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
@@ -10,10 +11,12 @@ import react.dom.html.ReactHTML.hr
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
 import react.ChildrenBuilder
+import react.dom.html.HTMLAttributes
+import css.*
 
 external interface AppProps : Props {
     var gitPath: String
-    var accountBalance: Int
+    var viewPort: Array<Int>
 }
 
 val App = FC<AppProps> {
@@ -22,14 +25,7 @@ val App = FC<AppProps> {
 
     div {
 
-        css {
-            margin = Auto.auto
-            width = 75.pct
-            padding = 20.px
-            height = 100.pc
-            backgroundColor = Color("#f3f3f6")
-            borderRadius = 50.px
-        }
+        containerCss()
 
         AppHeader()
 
@@ -56,6 +52,7 @@ private fun ChildrenBuilder.gitPath(gitPath: String) {
                     NamedColor.blue
                 else
                     NamedColor.green
+                wordWrap = WordWrap.breakWord
             }
 
             span {
