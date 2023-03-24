@@ -27,7 +27,7 @@ val App = FC<AppProps> {
             width = 75.pct
             padding = 20.px
             height = 100.pc
-            backgroundColor = Color("#e2e2ef")
+            backgroundColor = Color("#f3f3f6")
             borderRadius = 50.px
         }
 
