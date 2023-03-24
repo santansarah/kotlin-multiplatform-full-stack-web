@@ -1,3 +1,5 @@
+package components
+
 import csstype.Display
 import csstype.px
 import csstype.rgb

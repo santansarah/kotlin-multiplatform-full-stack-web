@@ -1,4 +1,7 @@
-import io.ktor.http.*
+package services
+
+import Descriptor
+import SyncResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
