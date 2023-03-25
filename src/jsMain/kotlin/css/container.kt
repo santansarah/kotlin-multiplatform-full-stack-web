@@ -6,8 +6,8 @@ import org.w3c.dom.HTMLDivElement
 import react.dom.html.HTMLAttributes
 
 val DESKTOP = Selector("@media(max-width: 1240px)")
-val TABLET = Selector("@media(max-width: 850px)")
-val MOBILE = Selector("@media(max-width: 480px)")
+val TABLET = Selector("@media(max-width: 1000px)")
+val MOBILE = Selector("@media(max-width: 700px)")
 
 fun HTMLAttributes<HTMLDivElement>.containerCss() {
     css {

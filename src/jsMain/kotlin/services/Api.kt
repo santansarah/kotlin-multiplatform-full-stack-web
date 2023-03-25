@@ -23,3 +23,9 @@ suspend fun syncCharacteristics(): SyncResponse<BleCharacteristic> {
 suspend fun syncDescriptors(): SyncResponse<Descriptor> {
     return jsonClient.get(Descriptor.path).body()
 }
+
+fun <T> SyncResponse<T>.toApiResults(): String =
+    "updateCount: ${this.updateCount}\n" +
+            "updateRows: ${this.updatedValues}\n" +
+            "updateErrors: ${this.errors}"
+

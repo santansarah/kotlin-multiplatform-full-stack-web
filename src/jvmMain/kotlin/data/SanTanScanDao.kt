@@ -24,10 +24,10 @@ class SanTanScanDao {
     private fun resultRowToCharacteristic(row: ResultRow): BleCharacteristic {
         return try {
             BleCharacteristic(
-                identifier = row[DescriptorTable.identifier],
-                name = row[DescriptorTable.name],
-                uuid = row[DescriptorTable.uuid],
-                source = row[DescriptorTable.bleSource]
+                identifier = row[CharacteristicTable.identifier],
+                name = row[CharacteristicTable.name],
+                uuid = row[CharacteristicTable.uuid],
+                source = row[CharacteristicTable.bleSource]
             )
         } catch (e: Exception) {
             println(e)
@@ -68,11 +68,11 @@ class SanTanScanDao {
     suspend fun batchCharacteristicsInsert(characteristics: List<BleCharacteristic>): ServiceResult<Boolean> {
         return try {
             val result = dbQuery {
-                DescriptorTable.batchInsert(characteristics) {
-                    this[DescriptorTable.uuid] = it.uuid
-                    this[DescriptorTable.name] = it.name
-                    this[DescriptorTable.identifier] = it.identifier
-                    this[DescriptorTable.bleSource] = it.source
+                CharacteristicTable.batchInsert(characteristics) {
+                    this[CharacteristicTable.uuid] = it.uuid
+                    this[CharacteristicTable.name] = it.name
+                    this[CharacteristicTable.identifier] = it.identifier
+                    this[CharacteristicTable.bleSource] = it.source
                 }
             }
 

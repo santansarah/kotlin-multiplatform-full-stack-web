@@ -4,6 +4,7 @@ import Descriptor
 import SyncResponse
 import csstype.*
 import elements.appButton
+import elements.syncItem
 import emotion.react.css
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -17,6 +18,7 @@ import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.textarea
 import react.useState
 import services.syncDescriptors
+import services.toApiResults
 
 external interface DescriptorsProps : Props {
 
@@ -31,10 +33,7 @@ val Descriptors = FC<Props> { props ->
     fun onSync() {
         println("button event launched")
         scope.launch {
-            val responseString = syncDescriptors()
-            descriptorSyncResponse = responseString.updateCount.toString() + "\n" +
-                    responseString.updatedValues.toString() + "\n" +
-                    responseString.errors.toString()
+            descriptorSyncResponse = syncDescriptors().toApiResults()
         }
     }
 
@@ -44,47 +43,6 @@ val Descriptors = FC<Props> { props ->
         onSync = { onSync() }
     )
 
-
 }
 
-fun ChildrenBuilder.syncItem(
-    title: String,
-    descriptorSyncResponse: String,
-    onSync: () -> Unit
-) {
-    div {
-        div {
-            css {
-                display = Display.flex
-                flexWrap = FlexWrap.wrap
-                alignItems = AlignItems.center
-            }
-
-            h2 {
-
-                css {
-                    width = 50.pct
-                }
-
-                +title
-            }
-
-            appButton("Start Sync", onSync)
-        }
-        p {
-            +"API Results"
-        }
-        textarea {
-
-            css {
-                backgroundColor = Color("#d2d6db")
-                display = Display.block
-                width = 100.pct
-            }
-
-            rows = 6
-            value = descriptorSyncResponse
-        }
-    }
-}
 

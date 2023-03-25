@@ -1,4 +1,5 @@
 import components.AppHeader
+import components.Characteristics
 import components.Descriptors
 import csstype.*
 import emotion.react.css
@@ -36,6 +37,8 @@ val App = FC<AppProps> {
                 color = NamedColor.darkgray
             }
         }
+
+        Characteristics()
 
         Descriptors()
 
