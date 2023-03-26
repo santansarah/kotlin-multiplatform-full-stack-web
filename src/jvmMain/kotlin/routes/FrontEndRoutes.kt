@@ -1,6 +1,5 @@
 package routes
 
-import domain.usecases.CheckForNewDescriptors
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*

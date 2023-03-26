@@ -17,7 +17,7 @@ fun HTMLAttributes<HTMLDivElement>.containerCss() {
         backgroundColor = Color("#f7f7f8")
         border = Border(4.px, LineStyle.solid, Color("#00005d"))
         borderRadius = 50.px
-        width = 60.pct
+        width = 50.pct
         DESKTOP {
             width = 70.pct
         }
