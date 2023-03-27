@@ -10,10 +10,6 @@ object DatabaseFactory {
         val driverClassName = "org.sqlite.JDBC"
         val jdbcURL = "jdbc:sqlite:./ble.db"
         val database = Database.connect(jdbcURL, driverClassName)
-
-        transaction {
-            SchemaUtils.create(DescriptorTable)
-        }
     }
 
     suspend fun <T> dbQuery(block: suspend () -> T): T =

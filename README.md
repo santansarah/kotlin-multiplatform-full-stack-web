@@ -1,6 +1,14 @@
 # Kotlin React Ktor JS Multiplatform with kotlin-emotion
 
-**Responsive CSS with `kotlin-emotion`** 
+## Responsive CSS with `kotlin-emotion`
+
+https://github.com/JetBrains/kotlin-wrappers/pull/1949
+
+## YouTube Video
+
+https://youtu.be/dG7akwtWsLA
+
+## Overview
 
 My [BLE Scanner & Debugger](https://github.com/santansarah/ble-scanner) is now live on the Google Play Store.
 
