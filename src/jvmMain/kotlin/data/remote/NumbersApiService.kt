@@ -1,5 +1,6 @@
 package data.remote
 
+import BASE_URL
 import BleCharacteristic
 import Descriptor
 import io.ktor.client.*
@@ -15,9 +16,6 @@ class NumbersApiService constructor(
 ) : KoinComponent {
 
     companion object ApiDefaults {
-
-       // private const val BASE_URL = "https://raw.githubusercontent.com/santansarah/bluetooth-numbers-database/master/v1"
-        private const val BASE_URL = "https://raw.githubusercontent.com/santansarah/bluetooth-numbers-database/ktor-testing/v1"
         const val DESCRIPTORS = "$BASE_URL/${Descriptor.jsonFile}"
         const val CHARACTERISTICS = "$BASE_URL/${BleCharacteristic.jsonFile}"
     }

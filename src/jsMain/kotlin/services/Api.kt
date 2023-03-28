@@ -9,19 +9,19 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 
-val jsonClient = HttpClient {
+val jsHttpClient = HttpClient {
     install(ContentNegotiation) {
         json()
     }
 }
 
 suspend fun syncCharacteristics(): SyncResponse<BleCharacteristic> {
-    return jsonClient.get(BleCharacteristic.path).body()
+    return jsHttpClient.get(BleCharacteristic.path).body()
 }
 
 
 suspend fun syncDescriptors(): SyncResponse<Descriptor> {
-    return jsonClient.get(Descriptor.path).body()
+    return jsHttpClient.get(Descriptor.path).body()
 }
 
 fun <T> SyncResponse<T>.toApiResults(): String =
